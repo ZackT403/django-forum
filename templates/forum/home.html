@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="container">
+        <hr/>
+        <div class="row">
+            <div class="col col-8">
+                {% for question in questions %}
+                    <div class="question-card-padding">
+                        <div class="card clickable-card" onclick="redirect({{ question.id }})">
+                            <div class="card-title">
+                                <h4 class="text-center">{{ question.title }}</h4>
+                                <hr/>
+                            </div>
+                            <div class="card-body">
+                                <p>{{ question.body }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col col-4">
+                <div class="side-card-padding">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="clickable-card"><h5>My Account</h5></div>
+                            <hr/>
+                            <div class="clickable-card"><h5>Create Post</h5></div>
+                            <hr/>
+                            <div class="clickable-card" onclick="redirect('myposts')"><h5>My Posts</h5></div>
+                            <hr/>
+                            <div class="clickable-card" onclick="redirect('logout')"><h5>Logout</h5></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side-card-padding">
+                    <div class="card">
+                        <div class="card-body">
+                            <div><h5 class="text-center">Trending</h5></div>
+                            <hr/>
+                            {% for q in trending %}
+                                <div><h5>{{ q.title }}</h5></div>
+                                <hr/>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function redirect(pk){
+            window.location.href = `/${pk}/`
+        }
+    </script>
+{%  endblock %}
 
-</body>
-</html>
