@@ -1,7 +1,30 @@
 {% extends 'common/base.html' %}
+{% load crispy_forms_filters %}
 {% block title %}{{ question.title }}{% endblock %}
 {% block content %}
+    <div class="container">
+        <div class="question-card-padding">
+            <div class="card clickable-card" onclick="redirect({{ question.id }})">
+                <div class="card-title">
+                    <h4 class="text-center">{{ question.title }}</h4>
+                    <hr/>
+                </div>
+                <div class="card-body">
+                    <p>{{ question.body }}</p>
+                </div>
+            </div>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+        </form>
+        <h4>Answers</h4>
+        <hr/>
+        {% for comment in comments %}
+            <p>{{ comment.content }}</p>
+            <hr/>
+        {% endfor %}
 
-    <h1>{{ question.title }}</h1>
-    <h1>{{ question.body }}</h1>
+    </div>
+
 {% endblock %}

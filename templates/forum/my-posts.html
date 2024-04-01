@@ -11,6 +11,11 @@
                 </div>
                 <div class="card-body">
                     <p>{{ question.body }}</p>
+                    <hr/>
+                    <form method="POST" action="/myposts/?id={{ question.id }}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger register-button" value="{{ question.id }}">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
