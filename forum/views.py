@@ -63,7 +63,8 @@ class QuestionDetail(LoginRequiredMixin, View):
 class CreatePost(LoginRequiredMixin, View):
     def get(self, request):
         form = CreatePostForm()
-        return render(request, 'forum/create-post.html', {'form': form})
+	context = {'form':form}
+        return render(request, 'forum/create-post.html', context)
 
     def post(self, request):
         form = CreatePostForm(request.POST)
@@ -74,5 +75,6 @@ class CreatePost(LoginRequiredMixin, View):
             Question.objects.create(user=user, title=title, body=body)
             return redirect('/myposts')
         else:
-            return render(request, 'forum/create-post.html', {'form': form})
+	    context = {'form': form}
+            return render(request, 'forum/create-post.html', context)
 
